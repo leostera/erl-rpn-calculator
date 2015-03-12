@@ -9,8 +9,8 @@ test() ->
     87 = rpn("90 3 -"),
     93 = rpn("90 3 +"),
     20 = rpn("10 2 *"),
-    5 = rpn("10 2 /"),
-    8 = rpn("2 3 ^"),
+    5.0 = rpn("10 2 /"),
+    8.0 = rpn("2 3 ^"),
     true = math:sqrt(2) == rpn("2 0.5 ^"),
     ok.
 
@@ -23,6 +23,7 @@ rpn("-", [A,B|S]) -> [B-A|S];
 rpn("+", [A,B|S]) -> [B+A|S];
 rpn("*", [A,B|S]) -> [B*A|S];
 rpn("/", [A,B|S]) -> [B/A|S];
+rpn("^", [A,B|S]) -> [math:pow(B,A)|S];
 %% accumulate values in the stack
 rpn(X, Stack) -> [read(X)|Stack].
 
