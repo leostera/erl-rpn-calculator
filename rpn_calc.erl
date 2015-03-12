@@ -19,6 +19,8 @@ rpn(L) when is_list(L) ->
     [Result] = lists:foldl(fun rpn/2, [], string:tokens(L, " ")),
     Result.
 
+rpn("-", [A,B|Stack]) -> [B-A|Stack];
+rpn("+", [A,B|Stack]) -> [B+A|Stack];
 %% accumulate values in the stack
 rpn(X, Stack) -> [read(X)|Stack].
 
