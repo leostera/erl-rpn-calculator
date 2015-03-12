@@ -1,7 +1,14 @@
 -module(rpn_calc).
--export([work/1]).
+-export([
+         rpn/1,
+         test/0
+        ]).
 
-work(L) when is_list(L) ->
+test() ->
+    5 = rpn("5"),
+    ok.
+
+rpn(L) when is_list(L) ->
     %% tokenize strings using spaces
     [Result] = lists:foldl(fun rpn/2, [], string:tokens(L, " ")),
     Result.
