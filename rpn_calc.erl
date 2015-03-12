@@ -9,3 +9,9 @@ work(L) when is_list(L) ->
 %% accumulate values in the stack
 rpn(X, Stack) -> [read(X)|Stack].
 
+%% convert
+read(N) ->
+    case string:to_float(N) of
+        {error,no_float} -> list_to_integer(N);
+        {F,_} -> F
+    end.
