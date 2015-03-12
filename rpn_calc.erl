@@ -14,6 +14,8 @@ test() ->
     true = math:sqrt(2) == rpn("2 0.5 ^"),
     true = math:log(2) == rpn("2 ln"),
     true = math:log10(2) == rpn("2 log10"),
+    10 = rpn("5 3 2 sum"),
+    30 = rpn("5 3 2 prod"),
     ok.
 
 rpn(L) when is_list(L) ->
@@ -21,6 +23,7 @@ rpn(L) when is_list(L) ->
     [Result] = lists:foldl(fun rpn/2, [], string:tokens(L, " ")),
     Result.
 
+%% operands!
 rpn("-", [A,B|S]) -> [B-A|S];
 rpn("+", [A,B|S]) -> [B+A|S];
 rpn("*", [A,B|S]) -> [B*A|S];
@@ -28,6 +31,9 @@ rpn("/", [A,B|S]) -> [B/A|S];
 rpn("^", [A,B|S]) -> [math:pow(B,A)|S];
 rpn("ln", [A|S]) -> [math:log(A)|S];
 rpn("log10", [A|S]) -> [math:log10(A)|S];
+rpn("sum", S) -> [lists:foldl(fun(A,B) -> A+B end, 0, S)];
+rpn("prod", S) -> [lists:foldl(fun(A,B) -> A*B end, 1, S)];
+
 %% accumulate values in the stack
 rpn(X, Stack) -> [read(X)|Stack].
 
