@@ -16,6 +16,7 @@ test() ->
     true = math:log10(2) == rpn("2 log10"),
     10 = rpn("5 3 2 sum"),
     30 = rpn("5 3 2 prod"),
+    25.0 = rpn("5 3 2 prod 2 / 10 sum"),
     ok.
 
 rpn(L) when is_list(L) ->
