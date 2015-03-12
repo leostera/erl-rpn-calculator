@@ -12,6 +12,8 @@ test() ->
     5.0 = rpn("10 2 /"),
     8.0 = rpn("2 3 ^"),
     true = math:sqrt(2) == rpn("2 0.5 ^"),
+    true = math:log(2) == rpn("2 ln"),
+    true = math:log10(2) == rpn("2 log10"),
     ok.
 
 rpn(L) when is_list(L) ->
@@ -24,6 +26,8 @@ rpn("+", [A,B|S]) -> [B+A|S];
 rpn("*", [A,B|S]) -> [B*A|S];
 rpn("/", [A,B|S]) -> [B/A|S];
 rpn("^", [A,B|S]) -> [math:pow(B,A)|S];
+rpn("ln", [A|S]) -> [math:log(A)|S];
+rpn("log10", [A|S]) -> [math:log10(A)|S];
 %% accumulate values in the stack
 rpn(X, Stack) -> [read(X)|Stack].
 
