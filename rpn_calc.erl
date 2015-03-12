@@ -6,3 +6,6 @@ work(L) when is_list(L) ->
     [Result] = lists:foldl(fun rpn/2, [], string:tokens(L, " ")),
     Result.
 
+%% accumulate values in the stack
+rpn(X, Stack) -> [read(X)|Stack].
+
