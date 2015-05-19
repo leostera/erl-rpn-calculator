@@ -1,10 +1,10 @@
 -module(rpn_calc).
--export([
-         rpn/1,
-         test/0
-        ]).
 
-test() ->
+-include_lib("eunit/include/eunit.hrl").
+
+-compile(export_all).
+
+old_test() ->
     5 = rpn("5"),
     87 = rpn("90 3 -"),
     93 = rpn("90 3 +"),
@@ -44,3 +44,9 @@ read(N) ->
         {error,no_float} -> list_to_integer(N);
         {F,_} -> F
     end.
+
+% TESTS
+%
+
+add_test() ->
+  ?assertEqual([4], rpn("sum", [2,2])).
